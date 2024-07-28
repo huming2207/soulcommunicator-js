@@ -50,3 +50,12 @@ export type DeviceListenerType = {
   repairEvent: [message: Buffer, serialNumber: string, topic: string];
   disposeEvent: [message: Buffer, serialNumber: string, topic: string];
 };
+
+export enum CommandType {
+  METADATA_FIRMWARE = TOPIC_CMD_METADATA_FIRMWARE,
+  METADATA_FLASH_ALGO = TOPIC_CMD_METADATA_FLASH_ALGO,
+  BINARY_FIRMWARE = TOPIC_CMD_BIN_FIRMWARE,
+  BINARY_FLASH_ALGO = TOPIC_CMD_BIN_FLASH_ALGO,
+  SET_STATE = TOPIC_CMD_SET_STATE,
+  READ_MEMORY = TOPIC_CMD_READ_MEM,
+}

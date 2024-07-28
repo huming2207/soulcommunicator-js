@@ -1,6 +1,8 @@
 import mqtt, { IClientOptions } from "mqtt";
 import {
+  CommandType,
   DeviceListenerType,
+  TOPIC_CMD_BASE,
   TOPIC_REPORT_BASE,
   TOPIC_REPORT_DISPOSE,
   TOPIC_REPORT_ERASE,
@@ -65,5 +67,13 @@ export class DeviceListener extends TypedEventEmitter<DeviceListenerType> {
         }
       }
     });
+  };
+
+  public sendCommand = async (serialNumber: string, cmd: CommandType, payload: string | Buffer): Promise<void> => {
+    await this.mq.publishAsync(TOPIC_CMD_BASE + `/${serialNumber}/${cmd}`, payload);
+  };
+
+  public stopListen = async (): Promise<void> => {
+    await this.mq.unsubscribeAsync(TOPIC_REPORT_BASE + "/#");
   };
 }
